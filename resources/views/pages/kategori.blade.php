@@ -16,19 +16,12 @@
                 <strong class="">Data Kategori</strong>
             </div>
             <div class="card-body card-block">
-                <div class="row form-group" style="display:none">
-                    <div class="col-sm-4">
-                        <label type="hidden" for="text-input" class=" form-control-label"></label>
-                    </div>
-                    <div class="col-sm-8">
-                        <input type="hidden" name="kd_kategori" value="{{$kategori->kd_kategori}}">
-                    </div>
-                </div>
                 <div class="row form-group">
                     <div class="col-sm-4">
                         <label for="text-input" class=" form-control-label">Nama Kategori</label>
                     </div>
                     <div class="col-sm-8">
+                        <input type="hidden" name="kd_kategori" value="{{$kategori->kd_kategori}}">
                         <input type="text" id="text-input" name="nama" placeholder="Nama Kategori" class="form-control" value="{{$kategori->nama_kategori}}">
                     </div>
                 </div>

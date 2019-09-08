@@ -32,17 +32,14 @@ class PenerbitController extends Controller
                 "nama_penerbit"=>$nama,
                 "kota"=>$kota
             ]);
-        return redirect('penerbit')->with('sukses','Data berhasil di tambah!!');
-            
         } else {
-
             //Simpan edit
             DB::table('tb_penerbit')->where('kd_penerbit', $kd)->update([
                 "nama_penerbit"=>$nama,
                 "kota"=>$kota
             ]);
-        return redirect('penerbit')->with('sukses','Data berhasil di update!!');
         }
+        return redirect('penerbit')->with('sukses','Data berhasil di update!!');
     }
 
     public function edit($kode)

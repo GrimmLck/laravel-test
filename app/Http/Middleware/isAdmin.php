@@ -19,7 +19,7 @@ class isAdmin
         if(Auth::user() && Auth::user()->lv == 1){
           return $next($request);
         }
-        return redirect('/login');
+        return redirect('/dashboard');
 
     }
 }

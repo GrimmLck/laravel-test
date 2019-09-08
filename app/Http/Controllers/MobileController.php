@@ -38,39 +38,54 @@ class MobileController extends Controller
 
     public function save(Request $req)
     {
-        if(!$req->has('id')){
-            $result = DB::table('tb_buku')->insert([
-                "kd_buku"=> $req->kode,
-                "judul"=> $req->judul,
-                "kd_pengarang"=> $req->kdpen,
-                "kd_penerbit"=> $req->kdpeng,
-                "tempat_terbit"=> $req->tmpt,
-                "tahun_terbit"=> $req->thn,
-                "kd_kategori"=> $req->kdkateg,
-                "halaman"=> $req->hal,
-                "edisi"=> $req->edisi,
-                "ISBN"=> $req->isbn,
-                "status" => "Ada"
-            ]);
-        }else{
-            $result = DB::table('tb_buku')->where("id", $req->id)->update([
-                "kd_buku"=> $req->kode,
-                "judul"=> $req->judul,
-                "kd_pengarang"=> $req->kdpeng,
-                "kd_penerbit"=> $req->kdpen,
-                "tempat_terbit"=> $req->tmpt,
-                "tahun_terbit"=> $req->thn,
-                "kd_kategori"=> $req->kdkateg,
-                "halaman"=> $req->hal,
-                "edisi"=> $req->edisi,
-                "ISBN"=> $req->isbn,
-                "status" => "Ada"
-            ]);
+      //NAMA FILE GAMBAR
+      if($req->file('cover')){
+        $foto = $req->file('cover');
+        $nama_gambar = date('Y-m-d-').$foto->getClientOriginalName();
+      } else {
+        $nama_gambar = $req->get('old_foto');
+      }
+
+      if(!$req->has('id')){
+          $result = DB::table('tb_buku')->insert([
+              "kd_buku"=> $req->kode,
+              "judul"=> $req->judul,
+              "kd_pengarang"=> $req->kdpen,
+              "kd_penerbit"=> $req->kdpeng,
+              "tempat_terbit"=> $req->tmpt,
+              "tahun_terbit"=> $req->thn,
+              "kd_kategori"=> $req->kdkateg,
+              "halaman"=> $req->hal,
+              "edisi"=> $req->edisi,
+              "ISBN"=> $req->isbn,
+              "status" => "Ada",
+              "cover" => $nama_gambar
+          ]);
+      }else{
+          $result = DB::table('tb_buku')->where("id", $req->id)->update([
+              "kd_buku"=> $req->kode,
+              "judul"=> $req->judul,
+              "kd_pengarang"=> $req->kdpeng,
+              "kd_penerbit"=> $req->kdpen,
+              "tempat_terbit"=> $req->tmpt,
+              "tahun_terbit"=> $req->thn,
+              "kd_kategori"=> $req->kdkateg,
+              "halaman"=> $req->hal,
+              "edisi"=> $req->edisi,
+              "ISBN"=> $req->isbn,
+              "status" => "Ada",
+              "cover" => $nama_gambar
+          ]);
+      }
+
+        //MEMINDAH FILE GAMBAR
+        if($req->file('cover')){
+          $foto->move(public_path(). "/images/cover", $nama_gambar);
         }
 
         //NILAI BALIK
         if($result){
-            echo json_encode(["type"=>"success","msg"=>"Data Success Dsimpan !"]);
+            echo json_encode(["type"=>"success","msg"=>"Data Success Disimpan !"]);
         } else {
             echo json_encode(["type"=>"error","msg"=>"Data Gagal Disimpan !"]);
         }

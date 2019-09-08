@@ -39,7 +39,6 @@ class KategoriController extends Controller
                 "singkatan"=>$sing
             ]);
         }
-
         return redirect('kategori')->with('sukses','Data berhasil ditambah');;
     }
 

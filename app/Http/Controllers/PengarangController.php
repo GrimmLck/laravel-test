@@ -31,15 +31,14 @@ class PengarangController extends Controller
           "nama_pengarang"=>$nama,
           "kota"=>$kota
         ]);
-      return redirect('pengarang')->with('sukses','Data berhasil di tambah!!');
-        
+
       } else {
         DB::table('tb_pengarang')->where("kd_pengarang", $kd)->update([
           "nama_pengarang"=>$nama,
           "kota"=>$kota
         ]);
-      return redirect('pengarang')->with('sukses','Data berhasil di update!!');
       }
+      return redirect('pengarang')->with('sukses','Data berhasil di input!!');
     }
 
     public function edit($kode)
